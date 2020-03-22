@@ -14,7 +14,12 @@
           <label for="personCheck">PERSON</label>
         </div>
         <div class="field">
-          <input id="orgCheck" class="is-checkradio" type="checkbox" v-model="isActive['ORG']" />
+          <input
+            id="orgCheck"
+            class="is-checkradio"
+            type="checkbox"
+            v-model="isActive['ORG']"
+          />
           <label for="orgCheck">ORG</label>
         </div>
         <hr />
@@ -32,17 +37,32 @@
           />
         </div>
         <div class="field">
-          <input id="highlightCheck" class="is-checkradio" type="checkbox" v-model="showHighlight" />
+          <input
+            id="highlightCheck"
+            class="is-checkradio"
+            type="checkbox"
+            v-model="showHighlight"
+          />
           <label for="highlightCheck">ハイライト</label>
         </div>
         <div class="field">
-          <input id="showAllCheck" class="is-checkradio" type="checkbox" v-model="showAllText" />
+          <input
+            id="showAllCheck"
+            class="is-checkradio"
+            type="checkbox"
+            v-model="showAllText"
+          />
           <label for="showAllCheck">全文表示</label>
         </div>
-        <button class="button" @click="showSidePanel = !showSidePanel">show side info</button>
       </div>
     </div>
     <div class="column doc-part">
+      <button
+        class="button is-small openButton"
+        @click="showSidePanel = !showSidePanel"
+      >
+        {{ showSidePanel ? '→' : '←' }}
+      </button>
       <div class="section">
         <div
           class="sentence-part"
@@ -57,30 +77,23 @@
               class="token-part"
               :key="token.id"
               :class="{ active: isActive[token.label] }"
-            >{{ token.text }}</span>
+              >{{ token.text }}</span
+            >
             {{ ' ' }}
           </template>
         </div>
       </div>
     </div>
-    <div class="column is-2 side-info" v-if="showSidePanel">
+    <div class="column is-3 side-info" v-if="showSidePanel">
       <div class="section">test</div>
     </div>
-    <div class="side-info-menu" v-else>
-      <span class="vertical">固有表現一覧</span>
-    </div>
-    <!-- <SidePanel></SidePanel> -->
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-import SidePanel from '~/components/SidePanel.vue'
 
 export default {
-  components: {
-    SidePanel
-  },
   computed: {
     ...mapGetters('job', ['results']),
     maxRank() {
@@ -147,15 +160,11 @@ div.setting-part {
   overflow: auto;
   background: rgb(245, 245, 245);
 }
-.side-info-menu {
-  width: 40px;
-  height: 100vh;
-  box-shadow: -3px 0px 1px #999;
-  overflow: auto;
-  background: rgb(245, 245, 245);
-}
 
-.vertical {
-  writing-mode: vertical-rl;
+.openButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  box-shadow: 3px 3px 3px #999;
 }
 </style>
