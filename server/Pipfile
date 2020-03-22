@@ -5,11 +5,14 @@ verify_ssl = true
 
 [dev-packages]
 autopep8 = "*"
-pylint = "*"
+flake8 = "*"
 
 [packages]
 responder = "*"
 spacy = "*"
+pytextrank = "*"
+pandas = "*"
+lexrank = "*"
 
 [requires]
 python_version = "3.6"
