@@ -23,11 +23,14 @@ export default {
   /*
    ** Global CSS
    */
-  css: ['bulma-extensions/dist/css/bulma-extensions.min.css'],
+  css: [
+    'bulma-extensions/dist/css/bulma-extensions.min.css',
+    '@fortawesome/fontawesome-free/css/all.css'
+  ],
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [],
+  plugins: ['~/plugins/vue-scrollto'],
   /*
    ** Nuxt.js dev-modules
    */

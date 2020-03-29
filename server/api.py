@@ -42,7 +42,7 @@ class NerResource:
                 start_id = ent.start_char
                 end_id = ent.end_char
                 tmp = {
-                    'id': ent_id,
+                    'id': f"{sent_id}_{ent_id}",
                     'text': text[start_id:end_id],
                     'label': ent.label_
                 }
@@ -50,7 +50,7 @@ class NerResource:
                 start_id = ent.end_char
             # 最後のエンティティから文末までを追加
             tokens.append({
-                'id': ent_id+1,
+                'id': f"{sent_id}_{ent_id+1}",
                 'text': text[start_id:sent.end_char],
                 'label': 'O'
             })
