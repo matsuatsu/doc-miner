@@ -29,5 +29,13 @@ export const actions = {
     commit('setResults', response['data'])
     console.log(response)
     this.$router.push('/analyzer')
+  },
+  async postData2({ state, commit }) {
+    const data = new FormData()
+    data.append('text', state.text)
+    const response = await axios.post('http://localhost:8080/api/network', data)
+    commit('setResults', response['data'])
+    console.log(response)
+    this.$router.push('/network')
   }
 }

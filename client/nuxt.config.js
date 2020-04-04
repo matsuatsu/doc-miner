@@ -25,7 +25,8 @@ export default {
    */
   css: [
     'bulma-extensions/dist/css/bulma-extensions.min.css',
-    '@fortawesome/fontawesome-free/css/all.css'
+    '@fortawesome/fontawesome-free/css/all.css',
+    'vue-d3-network/dist/vue-d3-network.css'
   ],
   /*
    ** Plugins to load before mounting the App

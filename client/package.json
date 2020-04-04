@@ -16,6 +16,7 @@
     "@nuxtjs/bulma": "^1.2.1",
     "bulma-extensions": "^6.2.7",
     "nuxt": "^2.0.0",
+    "vue-d3-network": "github:emiliorizzo/vue-d3-network#pull/49/head",
     "vue-scrollto": "^2.17.1"
   },
   "devDependencies": {

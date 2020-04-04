@@ -14,6 +14,55 @@ api = responder.API(
 nlp = spacy.load("en_core_web_sm")
 
 
+@api.route("/api/network")
+class NetworkResource:
+    def on_get(self, req, resp):
+        resp.text = "test"
+
+    async def on_post(self, req, resp):
+        data = await req.media()
+        text = data["text"]
+        doc = nlp(text)
+        results = {}
+        nodes = {}
+        links = {}
+        for sent in doc.sents:
+            tokens = [(i, x) for i, x in enumerate(sent)
+                      if x.pos_ in ["NOUN", "PROPN"]]
+            for i, token in tokens:
+                if token.lemma_ not in nodes.keys():
+                    c = "black"
+                    if token.pos_ == "PROPN":
+                        c = "red"
+                    nodes[token.lemma_] = {
+                        "id": f"{token.lemma_}_{token.pos_}",
+                        "name": token.lemma_,
+                        "_size": 30,
+                        "_color": c
+                    }
+                elif nodes[token.lemma_]["_size"] < 50:
+                    nodes[token.lemma_]["_size"] += 5
+            for i in range(len(tokens)):
+                for j in range(i+1, len(tokens)):
+                    _, token_i = tokens[i]
+                    _, token_j = tokens[j]
+                    sid = f"{token_i.lemma_}_{token_i.pos_}"
+                    tid = f"{token_j.lemma_}_{token_j.pos_}"
+                    key = "-".join(sorted([sid, tid]))
+                    if key not in links.keys():
+                        links[key] = {
+                            "sid": sid,
+                            "tid": tid,
+                            # "_color": "gray",
+                            "count": 1
+                        }
+                    else:
+                        links[key]["count"] += 1
+        results["nodes"] = list(nodes.values())
+        results["links"] = list([x for x in links.values() if x['count'] > 1])
+        resp.media = results
+
+
 @api.route("/api/ner")
 class NerResource:
     def on_get(self, req, resp):
